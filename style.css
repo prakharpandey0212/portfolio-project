@@ -1,0 +1,1354 @@
+
+
+/* --- Basic Reset & Font --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-light);
+    /* --- BACKGROUND REMOVED TO SHOW VIDEO --- */
+    /* background: linear-gradient(135deg, var(--bg-violet), var(--bg-purple)); */
+    /* background-size: 200% 200%; */
+    /* animation: gradientBG 10s ease-in-out infinite; */
+    
+    /* Fallback color if video fails to load */
+    
+    min-height: 100vh;
+    line-height: 1.6;
+    margin: 0; /* Add margin 0 for safety */
+}
+/* --- Body Background Video Styles --- */
+.body-video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Sabse peeche */
+    overflow: hidden;
+}
+
+#bodyBgVideo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translateX(-50%) translateY(-50%);
+    object-fit: cover;
+    z-index: 1; /* z-index 1 (relative to parent) */
+}
+
+.body-video-overlay {
+    position: absolute; /* Relative to container */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Dark overlay */
+    z-index: 2; /* Overlay video ke oopar */
+}
+
+/* Ensure main content is scrollable and above the overlay */
+main {
+    position: relative;
+    z-index: 10; /* main content overlay ke oopar */
+    background: none; /* Koi background nahi */
+    box-shadow: none;
+    padding-top: 80px; /* Fixed navbar ke liye space */
+}
+
+
+/* --- NEW: Dark Purple Circle --- */
+/* --- NEW: Dark Purple Circle --- */
+.bg-circle {
+    position: absolute; /* <<< FIXED SE ABSOLUTE KAREIN */
+    top: 60%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    height: 350px;
+    background: rgba(22, 21, 24, 0.312);
+    border-radius: 50%;
+    z-index: 0; /* Ye glass container (z-index 10) ke peeche rahega */
+    opacity: 1;
+    filter: blur(10px);
+}
+
+h1, h2, h3, h4 {
+    font-weight: 600;
+}
+
+p {
+    color: var(--text-dark);
+}
+
+a {
+    text-decoration: none;
+    color: var(--highlight-color);
+    transition: color 0.3s ease;
+}
+a:hover {
+    color: var(--text-light);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* --- Glass Container --- */
+.glass-container {
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(38px) saturate(180%);
+    background-color: rgba(50, 51, 52, 0.419);
+    border-radius: 12px;
+    border: 1px solid var(--glass-border-light);
+    box-shadow: 0 10px 40px 0 var(--glass-shadow);
+    padding: 2rem;
+}
+/* Single Glass Block */
+.hero-glass-container {
+    position: relative;
+    overflow: visible; 
+    padding-top: 125px; 
+    opacity: 0;
+    transition: opacity 1s ease 0.2s;
+    
+    /* --- NEW: Kam Blur Sirf Iske Liye --- */
+    backdrop-filter: blur(15px) saturate(150%);
+    -webkit-backdrop-filter: blur(3px) saturate(150%);
+}
+/* --- Preloader Styles --- */
+.preloader-cartoon { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #0A0A0A; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.5s ease; }
+/* ... (baaki preloader styles same hain) ... */
+.ninja-avatar-container { position: relative; width: 250px; height: 250px; display: flex; justify-content: center; align-items: center; margin-bottom: 40px; }
+.ninja-head { position: relative; width: 150px; height: 150px; background-color: #222; border-radius: 50%; overflow: hidden; box-shadow: 0 0 40px rgba(0,191,165,0.5); }
+.ninja-mask-top { position: absolute; width: 100%; height: 50%; background-color: #d62828d4; top: 0; left: 0; border-bottom-left-radius: 50% 20%; border-bottom-right-radius: 50% 20%; z-index: 2; }
+.ninja-mask-bottom { position: absolute; width: 100%; height: 60%; background-color: #1a1a1a; bottom: 0; left: 0; border-top-left-radius: 50% 20%; border-top-right-radius: 50% 20%; z-index: 3; }
+.ninja-eyes { position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); display: flex; gap: 15px; z-index: 4; }
+.eye { width: 15px; height: 15px; background-color: #00bfa674; border-radius: 50%; box-shadow: 0 0 10px #00bfa674; animation: blink 2s infinite step-end; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+.ninja-star { position: absolute; width: 40px; height: 40px; background-color: #ccc; clip-path: polygon(50% 0%, 65% 35%, 100% 50%, 65% 65%, 50% 100%, 35% 65%, 0% 50%, 35% 35%); box-shadow: 0 0 12px rgba(255,255,255,0.7); animation: star-orbit 6s linear infinite, star-spin 2s linear infinite; }
+.star-1 { top: 0; left: 50%; margin-left: -20px; animation-delay: 0s; } .star-2 { top: 50%; left: 100%; margin-top: -20px; animation-delay: -1.5s; } .star-3 { top: 100%; left: 50%; margin-top: -20px; animation-delay: -3s; } .star-4 { top: 50%; left: 0; margin-left: -20px; animation-delay: -4.5s; }
+@keyframes star-orbit { 0% { transform: translate(0, 0) rotate(0deg); } 25% { transform: translate(50px, 50px) rotate(90deg); } 50% { transform: translate(0, 100px) rotate(180deg); } 75% { transform: translate(-50px, 50px) rotate(270deg); } 100% { transform: translate(0, 0) rotate(360deg); } }
+@keyframes star-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.loading-text { font-size: 2rem; font-weight: bold; color: #00bfa674; animation: pulse-text 2s infinite; }
+@keyframes pulse-text { 0%, 100% { opacity: 1; text-shadow: 0 0 15px #00bfa674; } 50% { opacity: 0.6; text-shadow: none; } }
+
+/* --- 1. Navbar --- */
+.navbar {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    right: 1rem;
+    z-index: 100;
+    /* Light Spot Effect */
+    box-shadow: 3px 25px 50px rgba(223, 138, 138, 0.378), 
+                -30px 30px 60px rgba(89, 77, 77, 0.232), 
+                30px 30px 60px rgba(255, 255, 255, 0.05);
+}
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem; 
+}
+.nav-logo {
+     background: linear-gradient(90deg, #cefc03b9, #09ff00c1,rgba(21, 0, 255, 0.898),rgb(249, 94, 83)); /* Pink se dark grey/black */
+    -webkit-background-clip: text; 
+    color: transparent;
+}
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+.nav-menu a {
+    color: var(--text-dark);
+    font-weight: 500;
+}
+.nav-menu a:hover {
+    background: linear-gradient(90deg, #8e8bf6b9, #72c56fc1,rgba(235, 149, 219, 0.898),rgb(249, 94, 83)); /* Pink se dark grey/black */
+    -webkit-background-clip: text; 
+    color: transparent;
+}
+.nav-icons {
+    display: flex;
+    gap: 1.5rem;
+}
+.nav-icons a {
+    font-size: 1.2rem;
+    color: var(--text-dark);
+}
+.hamburger {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* --- 2. Hero Section (NEW LAYOUT) --- */
+.hero {
+    padding-top: 120px; 
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+}
+.hero-container {
+    width: 100%;
+}
+
+/* Single Glass Block */
+.hero-glass-container {
+    position: relative;
+    overflow: visible; /* Taaki image bahar dikhe */
+    padding-top: 125px; /* Pic ke liye oopar jagah (250px/2) */
+    opacity: 0;
+    border: 2px solid rgba(16, 16, 16, 0.478);
+    transition: opacity 1s ease 0.2s;
+}
+
+/* Pic Wrapper (Floating) */
+.hero-image-wrapper {
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid rgba(41, 40, 40, 0.5); 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    
+    /* Floating Position */
+    position: absolute;
+    bottom: 0; /* Glass container ke top se align */
+    left: 40%; /* 40% (left) + 15% (gap ka center) */
+    
+    z-index: 20; /* Sabse oopar */
+}
+.hero-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    opacity: 1; /* <<< YE LINE ADD KAREIN */
+}
+
+/* Content Grid (40/30/30) */
+.hero-content-grid {
+    display: grid;
+    grid-template-columns: 40% 30% 30%; /* 40% (About) + 30% (Gap) + 30% (Service) */
+    gap: 0; /* Koi gap nahi */
+    align-items: start;
+}
+
+/* Part 1: Left Content (Transparent) */
+.hero-content {
+    /* Isse glass effect hata dein */
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0; 
+}
+.hero-intro {
+    font-size: 1.2rem;
+    color: var(--text-dark);
+}
+.hero-name {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    /* --- NEW: Pink-Black Gradient Text --- */
+    background: linear-gradient(90deg, #eca6a6b9, #0fafefc1,rgba(149, 199, 235, 0.898),rgb(249, 94, 83)); /* Pink se dark grey/black */
+    -webkit-background-clip: text; /* Background ko text par clip karein */
+    background-clip: text;
+    color: transparent; /* Original text color ko transparent karein */
+    -webkit-text-fill-color: transparent; /* Safari ke liye */
+    display: inline-block; /* Ensure background-clip works reliably */
+}
+.hero-typed {
+    font-size: 1.5rem;
+     background: linear-gradient(90deg, #8e8bf6b9, #72c56fc1,rgba(235, 149, 219, 0.898),rgb(249, 94, 83)); /* Pink se dark grey/black */
+    -webkit-background-clip: text; 
+    color: transparent;
+    margin: 0.5rem 0;
+    min-height: 1.5rem; 
+}
+.hero-bio {
+    background: linear-gradient(90deg, #040404  ,rgb(249, 94, 83)); /* Pink se dark grey/black */
+    -webkit-background-clip: text; 
+    color: transparent;
+}
+.hero-logos {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    filter: grayscale(100%) brightness(1.5);
+}
+.hero-logos img {
+    height: 25px;
+    opacity: 100%;
+}
+
+/* Part 2: Middle Gap */
+.hero-pic-gap {
+    /* Ye khaali hai, pic iske oopar float ho rahi hai */
+}
+
+/* Part 3: Right Content (Transparent) */
+.hero-services-card {
+    /* Isse glass effect hata dein */
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0; 
+}
+.hero-services h4 {
+    font-size: 1.2rem;
+    color: var(--text-light);
+}
+.hero-services p {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+.show-more {
+     background: linear-gradient(90deg, #8e8bf6b9, #72c56fc1,rgba(235, 149, 219, 0.898),rgb(249, 94, 83)); /* Pink se dark grey/black */
+    -webkit-background-clip: text; 
+    color: transparent;
+}
+.show-more i {
+    margin-left: 0.5rem;
+}
+.hero-socials {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--glass-border-light);
+}
+.hero-socials a {
+    font-size: 1.2rem;
+    color: var(--text-dark);
+}
+
+/* --- 3. Projects Section --- */
+.projects {
+    padding: 6rem 0;
+    position: relative;
+    z-index: 10;
+}
+.project-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.service-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+    background: var(--bg-dark-transparent);
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+.service-item:hover {
+    transform: translateX(10px);
+    background: rgba(0,0,0,0.2);
+}
+.service-item img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.service-item-text {
+    flex-grow: 1;
+}
+.service-item-text h4 {
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+.service-item-text p {
+    font-size: 0.9rem;
+}
+.service-item i {
+    font-size: 1.2rem;
+    color: var(--text-dark);
+}
+
+/* --- 4. Services Section --- */
+.services {
+    padding: 2rem 0 6rem;
+    position: relative;
+    z-index: 10;
+}
+.services .container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+.service-card {
+    text-align: left;
+    transition: transform 0.3s ease;
+}
+.service-card:hover {
+    transform: translateY(-10px);
+}
+.service-card i {
+    font-size: 2.5rem;
+    color: var(--highlight-color);
+    margin-bottom: 1rem;
+}
+.service-card h3 {
+    font-size: 1.5rem;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+}
+.service-card p {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
+/* --- 5. Footer --- */
+
+
+/* --- Responsive (Mobile View) --- */
+@media (max-width: 992px) {
+    .services .container {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-glass-container {
+        padding-top: 120px; /* Mobile par pic ke liye kam space */
+    }
+    .hero-image-wrapper {
+        width: 200px;
+        height: 200px;
+        left: 50%; /* Mobile par pic ko poora center karein */
+    }
+    .hero-content-grid {
+        grid-template-columns: 1fr; /* Mobile par stack */
+        gap: 2rem;
+    }
+    .hero-content {
+        text-align: center;
+    }
+    .hero-pic-gap {
+        display: none; /* Mobile par gap hide karein */
+    }
+    .hero-logos {
+        justify-content: center;
+    }
+    .hero-services-card {
+        text-align: center;
+    }
+    .hero-socials {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+    
+    .container {
+        padding: 0 1rem;
+    }
+    
+    .navbar {
+        top: 0;
+        left: 0;
+        right: 0;
+        border-radius: 0;
+    }
+
+    .nav-menu {
+        display: none; 
+        flex-direction: column;
+        position: absolute;
+        top: 60px; 
+        left: 0;
+        right: 0;
+        width: 100%;
+        background: rgba(0,0,0,0.8); 
+        padding: 1rem 0;
+        text-align: center;
+    }
+    .nav-menu.active {
+        display: flex; 
+    }
+    .nav-icons {
+        display: none; 
+    }
+    .hamburger {
+        display: block; 
+    }
+
+    .hero {
+        padding-top: 100px;
+    }
+    .hero-name {
+        font-size: 2.5rem;
+    }
+    .hero-typed {
+        font-size: 1.3rem;
+    }
+    .service-item img {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .footer .container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+/* --- 3. Projects Section (NEW) --- */
+.projects {
+    padding: 6rem;
+    position: relative;
+    z-index: 10;
+}
+
+/* Gradient Text for Heading */
+.gradient-text {
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 60px;
+    background: linear-gradient(90deg, red,black,blue);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent; /* Fallback */
+}
+
+.project-card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem; /* Projects ke beech ka gap */
+}
+
+/* Blue Glass Container */
+.glass-container-blue {
+    backdrop-filter: blur(10px) saturate(120%);
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
+    background-color: rgba(63, 45, 97, 0.147); /* Blue tint */
+    border-top-left-radius:200px;
+    border-bottom-left-radius:200px;
+    border-top-right-radius:90px;
+    border-bottom-right-radius:90px;
+    border: 5px solid rgba(19, 3, 53, 0.245);
+    box-shadow: 0 10px 40px 0 var(--glass-shadow);
+    padding:5px; /* Thoda kam padding */
+    
+    display: flex;
+    align-items: center;
+    height: 300px; /* Fixed height */
+    position: relative;
+    overflow: hidden; /* Important for video area */
+    gap: 25px; /* Elements ke beech gap */
+}
+
+.project-image {
+    width: 280px; /* Square size (300px height - padding) */
+    height: 280px;
+    border:15px solid rgba(61, 61, 61, 0.936);
+    border-radius: 50%;
+    border-style:ridge;
+    object-fit: cover;
+   
+    flex-shrink: 0; /* Image ko shrink hone se rokein */
+}
+
+.project-text {
+    flex-grow: 1; /* Beech ka space le lega */
+    background: linear-gradient(200deg, rgb(9, 9, 9),rgb(242, 110, 110),blue,rgb(162, 0, 255));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent; /* Fallback */
+}
+.project-text ul{
+    flex-grow: 1; /* Beech ka space le lega */
+    background: linear-gradient(0deg, rgb(9, 9, 9),rgb(1, 1, 1),rgb(162, 0, 255),rgba(242, 5, 5, 0.889));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent; /* Fallback */
+}
+.project-text h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+}
+
+.project-text ul {
+    list-style: disc; /* Bullet points */
+    margin-left: 20px;
+}
+
+.project-text ul li {
+    margin-bottom: 0.8rem;
+    color: rgb(23, 221, 227);
+    font-size: 0.95rem;
+}
+
+.project-video-area {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    flex-shrink: 0; /* Video area ko shrink hone se rokein */
+    border-radius: 50%; /* Match image corners */
+   
+}
+
+.project-video {
+    position: absolute;
+    border-radius: 50%;
+   
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%) scale(0.90); /* Slightly zoomed in initially */
+    transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth scale */
+    opacity: 0.7; /* Thoda faded normal state mein */
+}
+
+/* --- NEW Hover State: Triggered ONLY on Video Area --- */
+.project-video-area:hover {
+    width: 300px;   /* Expand area on hover */
+    height: 300px;
+    border-radius: 50px; /* Make it square on hover */
+    transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth scale */
+}
+
+.project-video-area:hover .project-video {
+    transform: translate(-50%, -50%) scale(1.5); /* Enlarge video ONLY on area hover */
+    transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth scale */
+    opacity: 1; 
+}
+
+/* Responsive Adjustments for Projects */
+@media (max-width: 1200px) {
+    .project-card {
+        height: auto; /* Height auto karein */
+        flex-direction: column; /* Stack karein */
+        border-radius: 30px; /* Corners kam round karein */
+        padding: 20px;
+        gap: 20px;
+    }
+    .project-image {
+        width: 100%; /* Full width */
+        height: 200px; /* Fixed height */
+        margin-right: 0;
+    }
+    .project-text {
+        width: 100%;
+    }
+    .project-video-area {
+        width: 100%;
+        height: 200px; /* Match image height */
+        margin: 0; /* Reset margin */
+    }
+}
+
+@media (max-width: 768px) {
+    .gradient-text {
+        font-size: 2.2rem;
+    }
+    .project-text h3 {
+        font-size: 1.5rem;
+    }
+}
+/* --- 4. Skills Section --- */
+.services {
+    padding: 0;
+    z-index: 10;
+}
+
+
+/* Section Title */
+.section-title {
+    text-align: center;
+    font-size: 2.8rem;
+    color: var(--text-light);
+    margin-bottom: 60px;
+    text-shadow: 0 0 15px rgba(255,255,255,0.1);
+}
+
+/* Container for the skill cards (Flex Wrap) */
+.skill-card-list {
+    display: flex;         /* Use flexbox */
+    flex-direction: row;    /* Arrange items horizontally */
+    flex-wrap: wrap; 
+    justify-items: center;      /* Allow wrapping to next line */
+    justify-content: center; /* Center cards horizontally */
+    gap: 1rem;             /* Space between cards */
+    margin-bottom: 20px;   /* Space below the list */
+    align-items: stretch;/* Make cards in a row equal height */
+}
+
+/* Individual Skill Card Styling */
+.skill-display-card {
+    /* Inherits .glass-container */
+    transition: transform 0.5s ease-out, box-shadow 0.5s ease-out;
+    opacity: 1;
+    transform: none;
+
+    /* Sizing for Flexbox */
+    flex: 1 1 300px; /* Adjusted flex-basis slightly */
+    max-width: 300px; /* Increased max-width slightly */
+
+    /* Fixed initial height & Hide Overflow */
+    height: 450px; /* <<< ADD Fixed initial height */
+    overflow: hidden;
+
+    /* Ensure content inside card stacks vertically */
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+}
+
+/* --- (Add the rest of your .skill-display-card styles like :hover, h3, ul, li, .skill-media here) --- */
+.skill-display-card:hover {
+    transform: scale(1.03);
+    
+    box-shadow: 0 15px 50px rgba(243, 115, 115, 0.601);
+}
+
+.skill-display-card h3 {
+    font-size: 1rem;
+    background: linear-gradient(90deg, rgba(255, 68, 68, 0.831),black,rgba(28, 28, 255, 0.762));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent; /* Fallback */
+    margin-bottom: 1rem;
+    text-align: center;
+    border-bottom: 1px solid var(--glass-border-light);
+    padding-bottom: 1rem;
+    flex-shrink: 0;
+}
+
+.skill-media {
+    position: relative;
+    width: 100%;
+    height: 180px; /* Adjusted height slightly */
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border: 3px solid rgba(0, 0, 0, 0.674);
+    flex-shrink: 0; /* Prevent shrinking */
+    /* --- ADD Transition --- */
+    transition: all 0.5s ease-out;
+}
+
+/* --- NEW: Shrink Image on Card Hover --- */
+/* --- Shrink Image to Top-Left (20px/30px) on Card Hover --- */
+.skill-display-card:hover .skill-media {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    opacity: 0.6;
+    /* Transition removed from here */
+
+    /* --- Positioning using Pixels --- */
+    position: absolute;
+    top: 30px;
+    right: 15px;
+    margin: 0;
+}
+
+.skill-display-card ul {
+    list-style: disc;
+    margin-left: 20px;
+    padding-left: 10px;
+    flex-grow: 1; /* Allow list to take remaining space */
+    /* --- Limit initial height and hide scroll --- */
+    max-height: 100px;  /* <<< ADD Max height when not hovered */
+    overflow-y: hidden; /* <<< CHANGE Hide scrollbar initially */
+    /* --- Add transition for max-height --- */
+    transition: max-height 0.5s ease-out;
+}
+
+/* --- NEW: Expand List and Allow Scroll on Hover --- */
+.skill-display-card:hover ul {
+    max-height: 200px; /* <<< ADD Max scrollable height */
+    overflow-y: auto;  /* <<< ADD Enable scrollbar on hover */
+    padding-right: 10px;/* Optional: Add space for scrollbar */
+}
+
+.skill-display-card ul li {
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    margin-bottom: 0.8rem;
+    line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+     .skill-card-list{
+        gap: 1.5rem;
+        /* Make list vertical on mobile */
+        flex-direction: column;
+        align-items: center; /* Center cards in the column */
+    }
+    .skill-display-card {
+        flex-basis: auto; /* Reset flex basis */
+        width: 90%; /* Control width */
+        max-width: 400px; /* Optional max width */
+        height: auto; /* Remove fixed height */
+        min-height: 300px; /* Set a min-height if needed */
+        position: relative;
+        height: 450px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        
+    }
+     .skill-display-card:hover {
+         /* Keep hover transform or remove */
+         transform: scale(1.02);
+     }
+     .skill-display-card h3 {
+        font-size: 1.5rem;
+    }
+    .skill-media {
+        height: 150px;
+    }
+    /* Disable image shrink on mobile */
+    /* --- Shrink Image to Top-Left (20px/30px) on Card Hover --- */
+
+     /* Card List (Bullet Points) */
+.skill-display-card ul {
+    list-style: disc;
+    margin-left: 20px;
+    padding-left: 10px;
+    max-height: calc(450px - 60px - 180px - 4rem - 1.5rem);
+    overflow-y: hidden; /* <<< HIDE scrollbar initially */
+    /* Optional: Limit initial visible lines if desired, otherwise remove max-height */
+    /* max-height: 100px; */ /* Example: Initially show ~4-5 lines */
+    transition: none; /* No transition needed for overflow property change */
+    
+}
+
+/* Expand List and Allow Scroll on Hover */
+.skill-display-card:hover ul {
+    /* max-height: none; */ /* <<< REMOVE any max-height limit on hover */
+    overflow-y: auto;  /* <<< ENABLE scrollbar on hover */
+    padding-right: 10px;/* Optional: Add space for scrollbar */
+    max-height: calc(450px - 60px - 30px - 3rem)
+}
+      /* Ensure hover state for ul doesn't conflict */
+     .skill-display-card:hover ul {
+    /* max-height: none; */ /* <<< REMOVE any max-height limit on hover */
+    overflow-y: auto;  /* <<< ENABLE scrollbar on hover */
+    padding-right: 10px;/* Optional: Add space for scrollbar */
+}
+     .skill-display-card ul li {
+        font-size: 0.9rem;
+    }
+}
+/* Target the scrollbar specifically within the hovered skill card's ul */
+.skill-display-card:hover ul::-webkit-scrollbar {
+  width: 10px; /* Set the width of the scrollbar */
+}
+
+/* Style the track (the background the scrollbar moves along) */
+.skill-display-card:hover ul::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.175); /* Slightly dark transparent background */
+  border-radius: 4px; /* Optional: round the track corners */
+}
+
+/* Style the thumb (the draggable part of the scrollbar) */
+.skill-display-card:hover ul::-webkit-scrollbar-thumb {
+   
+    background:linear-gradient(120deg, rgba(247, 112, 112, 0.78),rgba(0, 0, 0, 0.642),blue);
+  border-radius: 2px; /* Make the thumb rounded */
+}
+
+/* Optional: Style the thumb on hover */
+.skill-display-card:hover ul::-webkit-scrollbar-thumb:hover {
+ 
+   background:linear-gradient(90deg, rgba(255, 0, 0, 0.289),rgba(0, 0, 0, 0.471));
+}
+/* Style the arrow buttons (if browser shows them) */
+.skill-display-card:hover ul::-webkit-scrollbar-button {
+  background-color: rgb(1, 1, 1);
+  height: 10px; /* Adjust size */
+  border-radius: 5px;
+ 
+}
+/* --- 5. Certifications & Internships Section --- */
+.certifications {
+    padding: 1rem 0;
+    position: relative;
+    z-index: 10;
+    
+}
+
+
+/* Container for the vertical list of cert cards */
+.cert-card-list {
+    display: flex;         /* Use flexbox */
+    flex-direction: row;    /* Arrange items horizontally */
+    flex-wrap: wrap; 
+    justify-items: center;      /* Allow wrapping to next line */
+    justify-content: center; /* Center cards horizontally */
+    gap: 1rem;             /* Space between cards */
+    margin-bottom: 20px;   /* Space below the list */
+    align-items: stretch;/* Make cards in a row equal height */
+}
+
+/* Style for each certification/internship card */
+.cert-display-card {
+    transition: transform 0.5s ease-out, box-shadow 0.5s ease-out;
+    opacity: 1;
+    transform: none;
+
+    /* Sizing for Flexbox */
+    flex: 1 1 300px; /* Adjusted flex-basis slightly */
+    max-width: 100%; /* Increased max-width slightly */
+
+    /* Fixed initial height & Hide Overflow */
+    height: 550px; /* <<< ADD Fixed initial height */
+    overflow: hidden;
+
+    /* Ensure content inside card stacks vertically */
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    
+}
+
+/* No transform on card hover */
+/* .cert-display-card:hover { ... } */
+
+/* --- Image/Media: Starts small in corner --- */
+.cert-media {
+    position: relative; /* Position relative to card */
+    top: 35px;          /* <<< Your desired top position */
+    right: 30px;         /* <<< Your desired left position */
+    width: 30px;        /* <<< Start small width */
+    height: 30px;       /* <<< Start small height */
+    border-radius: 50%; /* <<< Start as circle */
+    object-fit: cover;
+    border: 2px solid var(--glass-border-light);
+    opacity: 0.7;       /* Start semi-transparent */
+    z-index: 15;        /* Above text initially */
+    transition: all 0.5s ease-out; /* Smooth transition for everything */
+    cursor: pointer; /* Indicate hover effect */
+    
+}
+
+/* --- Image/Media: Expands on card hover --- */
+.cert-display-card:hover .cert-media {
+    top: 0;             /* <<< Move to top edge */
+    left: 0;            /* <<< Move to left edge */
+    width: 100%;        /* <<< Expand width */
+    height: 50%;      /* <<< Expand to desired height */
+    border-radius: 0;   /* <<< Become square */
+    opacity: 0.9;       /* <<< Increase opacity (adjust as needed) */
+    z-index: 5;         /* <<< Send behind text (relative to heading) */
+    border: none;
+    margin-bottom: 0.5rem; 
+    box-shadow: 2px solid red;/* Add margin below expanded image */
+}
+
+.cert-display-card h3 {
+    font-size: 1.5rem;
+    color: var(--highlight-color);
+    margin-bottom: 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid var(--glass-border-light);
+    padding-bottom: 0.8rem;
+    position: relative; /* Keep heading positioning */
+    z-index: 10;        /* Ensure heading is above expanded image */
+    background: none;   /* Remove separate background if added before */
+    margin-left: 0;   /* Reset margins if added before */
+    margin-right: 0;
+    margin-top: 0;
+    background: linear-gradient(120deg, rgb(3, 3, 3),rgba(242, 29, 150, 0.893),rgb(244, 157, 157),black);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent; /* Fallback */
+}
+
+.cert-provider, .cert-date {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+    font-style: italic;
+    position: relative; /* Keep text positioning */
+    z-index: 10;        /* Ensure text is above expanded image */
+}
+.cert-provider strong, .cert-date strong {
+    font-style: normal;
+    background: linear-gradient(90deg,rgba(91, 223, 244, 0.684), rgb(249, 118, 118));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent; /* Fallback */
+}
+
+.cert-display-card ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 0rem;
+    flex-grow: 1;
+    position: relative; /* Keep text positioning */
+    z-index: 10;        /* Ensure text is above expanded image */
+    transition: opacity 0.3s ease-out; /* Smooth fade for text (optional) */
+}
+
+
+.cert-display-card:hover ul,
+.cert-display-card:hover .cert-provider,
+.cert-display-card:hover .cert-date {
+    opacity: 0.5;
+}
+.cert-display-card:hover {
+    transform: scale(1.03);
+    
+    box-shadow: 0 15px 50px rgba(242, 76, 76, 0.601);
+}
+.cert-display-card ul li {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    margin-bottom: 0.6rem;
+    line-height: 1.6;
+    position: relative;
+    padding-left: 20px;
+}
+
+/* Custom bullet point */
+.cert-display-card ul li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    top: 0px;
+    color: var(--highlight-color);
+    font-weight: bold;
+}
+
+/* Remove scrollbar styles if not needed */
+/*
+.cert-display-card ul::-webkit-scrollbar { ... }
+.cert-display-card ul::-webkit-scrollbar-track { ... }
+.cert-display-card ul::-webkit-scrollbar-thumb { ... }
+.cert-display-card ul::-webkit-scrollbar-thumb:hover { ... }
+*/
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+     /* Disable or adjust hover effect on mobile */
+     .cert-display-card:hover .cert-media {
+        /* Keep initial state */
+        top: 20px; /* Or adjust slightly if padding changes */
+        left: 30px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        opacity: 0.7;
+        z-index: 15;
+        border: 3px solid black;
+     }
+     .cert-display-card {
+         padding-top: 60px; /* Keep consistent padding */
+         border: 1px solid black;
+     }
+     .cert-display-card h3 {
+        font-size: 1.3rem;
+    }
+     .cert-display-card ul li {
+        font-size: 0.85rem;
+        padding-left: 15px;
+    }
+    .cert-display-card ul li::before {
+       top: -1px;
+    }
+}
+.su{
+  color: rgba(236, 127, 162, 0.485);  
+}
+.gradient-text{
+    
+    transform: scale(1.03);
+       background: linear-gradient(90deg,rgba(33, 3, 255, 0.684), rgb(255, 8, 8));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent; 
+}
+/* --- START: Honeycomb Grid CSS --- */
+
+
+
+
+
+/* --- The Grid Container --- */
+.honeycomb-grid {
+    display: block; 
+    position: relative;
+    width: 600px; 
+    margin: auto; 
+    padding-top: 100px;
+    padding-bottom: 200px; 
+    padding-left: 10px; 
+    box-sizing: border-box;
+    transform-style: preserve-3d;
+}
+
+.honeycomb-grid::after { 
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* --- The Hexagon (NEW: Perfect Square Container) --- */
+.hexagon {
+    /* --- FIX 1: Made container a 50x50 square --- */
+    width: 50px;
+    height: 50px;
+    border: 1px solid; 
+    box-shadow: 10px solid blue;
+    
+    float: left; 
+    position: relative; 
+    cursor: pointer;
+    z-index: 1; 
+    
+    /* Hexagon path (adjusted for square) */
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background-color: #1818189c; 
+    
+    overflow: visible; 
+    
+    /* Joining Logic: Needs slight adjustment for square container */
+    margin-left: -8.5px;   
+    margin-bottom: -12.5px; /* Adjusted for 50px height */
+
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                z-index 0.4s ease,
+                opacity 0.4s ease,
+                clip-path 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); 
+    
+    transform-origin: center center;
+}
+
+.honeycomb-grid .hexagon:first-child {
+    margin-left: 0; 
+}
+
+/* Zigzag alignment: Adjusted for 50px height */
+.honeycomb-grid .hexagon:nth-child(even) {
+    margin-top: 35px; /* height/2 */
+}
+
+/* --- Hexagon Image (Inside Hexagon) --- */
+.hexagon img {
+    width: 100%;
+    height: 100%;
+    
+    /* --- FIX 2: 'contain' to fit full image, not 'cover' to cut it --- */
+    object-fit: contain; 
+    
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    
+    opacity: 0.7; /* Default Reddish Shade */
+    
+    transition: opacity 0.4s ease,
+                clip-path 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); 
+}
+
+/* --- HOVER EFFECT --- */
+.hexagon:hover {
+    z-index: 100; 
+    transform: scale(7); 
+    clip-path: none; /* Remove clip-path (becomes square) */
+    transition-delay: 0s; 
+}
+
+.hexagon:hover img {
+    opacity: 0.7; /* Reddish shade remove */
+    clip-path: none; /* Image clip-path bhi hatao */
+}
+/* ********************************************************* */
+.contact-section {
+    background-color: #000000ea; 
+    padding: 60px 20px;
+    text-align: center;
+    /* border-top: 2px solid #d9d9d985; */
+}
+
+
+
+.contact-subtext {
+    margin-bottom: 40px;
+    font-size: 1em;
+    color: #ccc;
+}
+
+/* 📌 CHANGE 1: Same Line Layout (Flexbox) */
+.contact-links-container {
+    display: flex;
+    flex-wrap: wrap; /* Taki agar space kam ho, toh wrap ho jaaye */
+    justify-content: center;
+    /* Thodi kam space for tighter, inline look */
+    gap: 15px; 
+    max-width: 1000px;
+    margin: 0 auto;
+    
+}
+
+/* Individual Link Styling */
+.contact-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none; 
+    color: #f59e9cb7; 
+    padding: 12px 20px; /* Padding kam kiya for smaller size */
+    border: 1px solid #aaffff;
+    border-radius: 50px; /* Thoda kam border radius */
+    transition: all 0.3s ease;
+    /* Flex properties for inline look */
+    flex-grow: 0; 
+    flex-shrink: 1; 
+    flex-basis: auto; /* Content ki width ke hisaab se space lega */
+}
+
+/* 📌 CHANGE 2: Smaller Icon Size */
+.contact-icon {
+    color: #95d8d8; 
+    font-size: 1.2em; /* Icon size chhota kiya */
+    margin-right: 10px; /* Thoda kam margin */
+}
+
+.contact-text {
+    font-size: 0.8em; /* Text size bhi halka kam kiya */
+    white-space: nowrap; /* Taki text ek hi line mein rahe */
+}
+
+/* Hover Effect */
+.contact-link:hover {
+    background-color: rgba(20, 112, 128, 0.399); 
+    box-shadow: 3px 0 12px rgba(90, 90, 89, 0.593); 
+    transform: translateY(-3px); /* Thoda kam lift-up effect */
+    color: #89eee9;
+}
+ 
+/* Media Query: Agar chhota screen ho, toh bhi links ek ke neeche ek aayenge */
+@media (max-width: 768px) {
+    .contact-links-container {
+        gap: 10px; /* Mobile par gap aur kam */
+    }
+    .contact-link {
+        flex-basis: 100%; /* Agar zaroorat pade toh full width le lo */
+        justify-content: center;
+        text-align: center;
+    }
+}
+/* ---------------------------------------------------- */
+/* 7. FOOTER STYLES (MINIMAL VERSION) */
+/* ---------------------------------------------------- */
+.site-footer {
+    /* Pure black background, thoda sa blue tint ke saath */
+    background-color: #060606d5; 
+    color: #dbf7ff;
+    padding: 20px 10%; /* Padding kam kiya */
+    border-top: 1px solid rgba(135, 227, 255, 0.2); /* Faint cyan border */
+    font-family: 'Inter', sans-serif;
+}
+
+.footer-container.minimal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.copyright {
+    font-size: 0.85em;
+    color: #999;
+}
+
+.footer-contact-minimal {
+    margin-left: auto;
+}
+
+.minimal-email-link {
+    text-decoration: none;
+    color: #7dd2fad1; /* Email ko cyan color diya */
+    font-size: 0.9em;
+    transition: color 0.3s;
+}
+
+.minimal-email-link:hover {
+    color: #0048ffa5; /* Hover par cyan color */
+}
+
+/* Responsive adjustments for minimal footer */
+@media (max-width: 768px) {
+    .footer-container.minimal {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-contact-minimal {
+        width: 100%;
+        text-align: center;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}
+/* Puraana style (Font Awesome icons ke liye) */
+.contact-icon {
+    color: #95d8d8; 
+    font-size: 1.2em; /* Icon size chhota kiya */
+    margin-right: 10px; /* Thoda kam margin */
+}
+
+/* --- YEH NAYA STYLE ADD KAREIN --- */
+/* Naya style (IMG icons ke liye) */
+.l{
+    width: 30px;  /* Image ki width ko control karein */
+    height: 30px; /* Image ki height ko control karein */
+    margin-right: 10px; /* Margin text se doori ke liye */
+    border-radius: 3px; /* Optional: Image ke corners ko round karein */
+    opacity: 0.7;
+}
+/* --- END --- */
+
+.contact-text {
+    font-size: 0.8em; /* Text size bhi halka kam kiya */
+    white-space: nowrap; /* Taki text ek hi line mein rahe */
+}
+/* --- END: Honeycomb Grid CSS --- */
